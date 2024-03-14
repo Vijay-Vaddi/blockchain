@@ -57,3 +57,26 @@ class Blockchain(object):
         '''returns the last block in the chain'''
         return self.chain[-1]
 
+
+    def proof_of_work(self, last_proof):
+        '''find p such that hash(pp') has last 4 digits to be 0
+        p is previous proof of work, p' is current
+        :param last_proof:<int>
+        :return:<int>'''
+
+        proof = 0
+
+        while self.valid_proof(last_proof, proof) is False:
+            proof += 1
+        return proof
+    
+
+    @staticmethod
+    def valid_proof(last_proof, proof):
+        '''validates the proof such that hash(p, p') concatenation of p, p'
+        returns true if ....0000'''
+
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == "0000"
+

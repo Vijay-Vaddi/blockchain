@@ -30,3 +30,9 @@ when the block chain is instantiated, we need to seed it to the GENESIS block,
 GENESIS block is one with no predecessors. 
 We also need to add proof (proof of work for the mining) to the genesis block. 
 
+---
+
+proof of work implementaio
+----
+
+the more 0's, the more difficult/time needed to find a solution

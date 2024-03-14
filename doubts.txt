@@ -1,0 +1,2 @@
+proof of work clearity. 
+how's the network able to verify the solution? 
