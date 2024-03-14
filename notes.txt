@@ -1,0 +1,32 @@
+a block can contain n number of transaction, decided by block size. 
+Bitcoin has 2000 but different chains can have different size. 
+
+Each block has an index, timestamp, transactions, (sender, receiver, amount), 
+proof and previous blocks hash-->this is what gives blockchain immutability. 
+
+block = {
+    'index': 1,
+    'timestamp': 1506057125.900785,
+    'transactions': [
+        {
+            'sender': "8527147fe1f5426f9dd545de4b27ee00",
+            'recipient': "a77f5cdfa2934df3954a5c7c7da5df1f",
+            'amount': 5,
+        }
+    ],
+    'proof': 324984774000,
+    'previous_hash': "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+}
+
+If one block is corrupted, all blocks will have wrong hashes. 
+
+-------
+adding transactions to the block 
+
+---
+Creating new blocks
+
+when the block chain is instantiated, we need to seed it to the GENESIS block,
+GENESIS block is one with no predecessors. 
+We also need to add proof (proof of work for the mining) to the genesis block. 
+
