@@ -3,7 +3,7 @@ import json
 from time import time
 from textwrap import dedent
 from uuid import uuid4
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 
 class Blockchain(object):
@@ -99,6 +99,14 @@ def mine():
 
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
+    values = request.get_json()
+
+    #check if all values for trax exists in the POSTed data. 
+    required = ['sender', 'recipient', 'amount']
+    if not all(k in values for k in required):
+        return 'Missing parameters', 400
+    
+    #create a new trax
     return f"add new trax"
 
 
