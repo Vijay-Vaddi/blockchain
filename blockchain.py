@@ -1,6 +1,9 @@
 import hashlib
 import json
 from time import time
+from textwrap import dedent
+from uuid import uuid4
+from flask import Flask, jsonify
 
 
 class Blockchain(object):
@@ -79,4 +82,35 @@ class Blockchain(object):
         guess = f'{last_proof}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess_hash[:4] == "0000"
+
+# instantiate app/node
+app = Flask(__name__)
+
+# generate a globally unique address for this code. (?)
+node_identifier = str(uuid4()).replace('-','')
+
+#instantiate blockchain
+blockchain = Blockchain()
+
+@app.route('/mine', methods=['GET'])
+def mine():
+    return f"mine new block"
+
+
+@app.route('/transactions/new', methods=['POST'])
+def new_transaction():
+    return f"add new trax"
+
+
+@app.route('/chain', methods=['GET'])
+def full_chain():
+    response = {
+        'chain': blockchain.chain,
+        'lenght': len(blockchain.chain)
+    }
+    return jsonify(response), 200
+
+if __name__=='__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
 

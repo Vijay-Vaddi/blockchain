@@ -1,2 +1,5 @@
 proof of work clearity. 
 how's the network able to verify the solution? 
+
+# generate a globally unique address for this code. (?)
+node_identifier = str(uuid4()).replace('-','')

@@ -36,3 +36,13 @@ proof of work implementaio
 ----
 
 the more 0's, the more difficult/time needed to find a solution
+
+---
+
+blockchain as an API
+
+Using flask and being able to map endpoints to python function, 
+allows us to talk to the blockchain over web using http requests. 
+
+Our server will form a single node in our blockchain network. 
+
