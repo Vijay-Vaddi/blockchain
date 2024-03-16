@@ -46,3 +46,9 @@ allows us to talk to the blockchain over web using http requests.
 
 Our server will form a single node in our blockchain network. 
 
+---
+Mining endpoint, 
+Where actual work happens. Calculating the solution(POW). 
+reward minors by adding a transaction and granting a contain
+create new block by adding it to the chain. 
+
