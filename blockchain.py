@@ -4,6 +4,8 @@ from time import time
 from textwrap import dedent
 from uuid import uuid4
 from flask import Flask, jsonify, request
+from urllib.parse import urlparse
+import requests
 
 
 class Blockchain(object):
@@ -11,7 +13,10 @@ class Blockchain(object):
     def __init__(self) -> None:
         self.chain = []
         self.current_trasactions = []
+        self.nodes = set()
 
+        # create a genesis block
+        self.new_block(proof=100, previous_hash=1)
 
     def new_block(self, proof, previous_hash=None):
         '''creates new block and adds it to the chain
@@ -37,13 +42,22 @@ class Blockchain(object):
         this new transaction goes into the next mined block
         and returns index of the block that'll hold this trax.
         '''
-        self.current_trasaction.append({
+        self.current_trasactions.append({
             'sender':sender,
             'recipient':recipient,
             'amount':amount
         })
         
         return self.last_block['index']+1 
+
+    def register_node(self, address):
+        '''add new node to the list of nodes
+        :param address: <str> address of the node eg, https://192.168.0.5:5000
+        :return: None
+        '''
+
+        parsed_url = urlparse(address)
+        self.nodes.add(parsed_url.netloc)
 
     @staticmethod
     def hash(block):
@@ -60,7 +74,6 @@ class Blockchain(object):
         '''returns the last block in the chain'''
         return self.chain[-1]
 
-
     def proof_of_work(self, last_proof):
         '''find p such that hash(pp') has last 4 digits to be 0
         p is previous proof of work, p' is current
@@ -73,7 +86,6 @@ class Blockchain(object):
             proof += 1
         return proof
     
-
     @staticmethod
     def valid_proof(last_proof, proof):
         '''validates the proof such that hash(p, p') concatenation of p, p'
@@ -82,6 +94,41 @@ class Blockchain(object):
         guess = f'{last_proof}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess_hash[:4] == "0000"
+
+    def valid_chain(self, chain):
+        '''check if a given chain is valid
+        by checking hash of of current block, and proof of current and last block
+        :param chain: <list> A blockchain from a node
+        :return: <bool> True if valid, else False
+        '''
+        last_block = chain[0]
+        current_index = 1
+
+        while current_index < len(chain):
+            block = chain[current_index]
+            print(f"{last_block}")
+            print(f"{block}")
+            print("\n-------------\n")
+
+            #check if hash of a block is correct 
+            if block['previous_hash']!=self.hash(last_block):
+                return False
+            
+            #check if proof of work is correct
+            if not self.valid_proof(last_block['proof'], block['proof']):
+                return False
+            
+            last_block = block
+            current_index = current_index+1
+        
+        return True
+    
+    def resolve_conflicts(self):
+        '''
+        
+        '''
+    
+
 
 # instantiate app/node
 app = Flask(__name__)

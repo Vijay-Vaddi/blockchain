@@ -52,3 +52,29 @@ Where actual work happens. Calculating the solution(POW).
 reward minors by adding a transaction and granting a contain
 create new block by adding it to the chain. 
 
+----
+
+consensus:
+
+Since blockchain has to be decentralized, 
+and if they're decentralized how to make sure all has to reflect the same chain?
+This is called the problem of consensus, which is solved using consensus algorithm 
+to use MORE THAN ONE NODE in the network. 
+
+step1: have to let a node know about other nodes in the network
+step2: each node has to keep a registry of other nodes 
+done via --/nodes/register to accept list of nodes in form of URLs
+
+/nodes/resolve - implements consensus algo, to resolve conflicts
+to ensure node has the correct chain
+
+adding new nodes to set() is cheap way ensuring adding new nodes 
+is idempotent, ie, adding same nodes x times will keep it only once. 
+
+----
+consensus algo
+
+Problem : conflict will arise if two nodes have two diff chains. 
+
+
+

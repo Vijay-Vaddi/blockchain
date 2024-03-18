@@ -3,3 +3,12 @@ how's the network able to verify the solution?
 
 # generate a globally unique address for this code. (?)
 node_identifier = str(uuid4()).replace('-','')
+
+/mine GET request is creating new block, 
+and transactions/new POST creates new transactions,
+so when does a new blocks gets added if just transactions keep happening?
+auto mine once the trax[] is full?
+
+can a block have different trax count? 
+
+
