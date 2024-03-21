@@ -76,5 +76,5 @@ consensus algo
 
 Problem : conflict will arise if two nodes have two diff chains. 
 
-
+#add endpoints for adding new nodes, and another for resolving conflicts
 
